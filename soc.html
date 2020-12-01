@@ -7,6 +7,9 @@
 		<link type="text/css" rel="stylesheet" href="./threejs/examples/main.css">
 	</head>
 	<body>
+                <video id="left_video" loop muted crossOrigin="anonymous" playsinline style="display:none">
+                  <source src="./gif1_CTjYhRIm_H88X.mp4">
+                </video>
 		<script type="module">
 
 			import * as THREE from './threejs/build/three.module.js';
@@ -20,6 +23,9 @@
 			animate();
 
 			function init() {
+
+
+
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -36,6 +42,18 @@
 
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 				camera.layers.enable( 1 );
+
+const listener = new THREE.AudioListener();
+camera.add(listener);
+const sound = new THREE.Audio(listener);
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load('./sonata.mp3', function(buffer) {
+  sound.setBuffer(buffer);
+  sound.setLoop(true);
+  sound.setVolume(0.2);
+  sound.play();
+});
+
 
 				const geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );
 				geometry.scale( 1, 1, - 1 );
@@ -67,8 +85,17 @@
 				skyBoxR.layers.set( 2 );
 				scene.add( skyBoxR );
 
+                                const left_video = document.getElementById('left_video')
+                                left_video.play();
+                                const left_texture = new THREE.Texture(left_video);
+                                setInterval(function() {
+  if(left_video.readyState >= left_video.HAVE_CURRENT_DATA) {
+    left_texture.needsUpdate = true;
+  }
+  }, 1000 / 24);
+
                                 var monitor_vti_geo = new THREE.BoxGeometry(1.6, 0.9, 0.025);
-                                var unimaginative_material = new THREE.MeshNormalMaterial();
+                                var unimaginative_material = new THREE.MeshBasicMaterial({map: left_texture});
                                 var monitor_left = new THREE.Mesh(monitor_vti_geo, unimaginative_material);
                                 var monitor_right = new THREE.Mesh(monitor_vti_geo, unimaginative_material);
 
