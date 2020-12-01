@@ -7,8 +7,9 @@
 		<link type="text/css" rel="stylesheet" href="./threejs/examples/main.css">
 	</head>
 	<body>
+<div id="container"></div>
                 <video id="left_video" loop muted crossOrigin="anonymous" playsinline style="display:none">
-                  <source src="./gif1_CTjYhRIm_H88X.mp4">
+                  <source src="./movie2.mp4">
                 </video>
 		<script type="module">
 
@@ -51,8 +52,14 @@ audioLoader.load('./sonata.mp3', function(buffer) {
   sound.setBuffer(buffer);
   sound.setLoop(true);
   sound.setVolume(0.2);
-  sound.play();
+  sound.play(500);
 });
+
+const container = document.getElementById("container");
+container.addEventListener('click', function() {
+  listener.context.resume();
+});
+
 
 
 				const geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );
