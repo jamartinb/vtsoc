@@ -4,7 +4,7 @@
 		<title>three.js vr - panorama</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<link type="text/css" rel="stylesheet" href="main.css">
+		<link type="text/css" rel="stylesheet" href="./threejs/examples/main.css">
 	</head>
 	<body>
 		<script type="module">
@@ -40,7 +40,7 @@
 				const geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );
 				geometry.scale( 1, 1, - 1 );
 
-				const textures = getTexturesFromAtlasFile( "textures/cube/sun_temple_stripe_stereo.jpg", 12 );
+				const textures = getTexturesFromAtlasFile( "./threejs/examples/textures/cube/sun_temple_stripe_stereo.jpg", 12 );
 
 				const materials = [];
 
